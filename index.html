@@ -4,15 +4,224 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Project</title>
     <style>
-        div{
-            font-size: 100px;
+        body{
+            margin: 0;
+        }
+        #map{
+            width: 100vw;
+            height: calc(100vh - 90px);
+        }
+        #resultDiv{
+            position: absolute;
+            right: 5px;
+            top: 0;
+
+            background-color: rgb(0, 0, 0, 0.75);
+            color: white;
+            width: calc(100vw - 10px);
+            height: 30px;
+            font-size: 15px;
+            text-align: right;
+
+            box-sizing: border-box;
+            padding: 5px;
+            z-index: 101;
+        }
+        #underbar{
+            width: 100vw;
+            height: 125px;
+            position: absolute;
+            bottom: 0;
+            z-index: 100;
+        }
+        #setUnderBar{
+            width: 100vw;
+            height: 90px;
+            background: linear-gradient( to right, black 10%, gray 50%, black );
+            position: inherit;
+            bottom: 0;
+        }
+        #peo1{
+            position: absolute  ;
+            width: 10px;
+            height: 10px;
+            background-color: green;
+            border-radius: 50%;
+        }
+        .mylocate{
+            display: flex;
+            font-size: 60px;
             font-weight: bolder;
+            height: 50px;
+            line-height: 50px;
+            color: white;
+
+            position: absolute;
+            z-index: 102;
+            top: 40%;
+            left: 50%;
+            transition: all 0.5s;
+            transform: translate(-50%, -20%);
+            filter: opacity(0%) drop-shadow(0 0 3px black);
+
+            animation: move_arrow 0.5s linear infinite alternate forwards;
+        }
+        @keyframes move_arrow{
+            from {transform: translate(-50%, 0%);}
+            to {transform: translate(-50%, -20%);}
         }
     </style>
 </head>
 <body>
-    <div>test</div>
+    <div id="map"></div>
+    <div id="underbar">
+        <div id="resultDiv">클릭한 위치의 좌표 (위도,경도) : </div>
+        <div id="setUnderBar"></div>
+    </div>
+
+    <div class="mylocate">▾</div>
+
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=6d82dc1b5b2fdc74ebac396c0b6b4e5b"></script>
+    <script>
+        const resultDiv = document.querySelector('#resultDiv');
+
+        let peopleX = 37.32191655510652;
+        let peopleY = 126.83084311183287;
+
+        var container = document.getElementById('map');
+
+        var options = {
+            center: new kakao.maps.LatLng(37.32191655510652, 126.83084311183287), //지도의 중심좌표
+            minLevel: 2,
+            maxLevel: 6,  
+            level: 3 //지도의 레벨(확대, 축소 정도)
+        };
+        
+        var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+        
+
+        kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+            // 클릭한 위도, 경도 정보 가져오기
+            var latlng = mouseEvent.latLng;
+            console.log(`클릭 좌표: ${latlng}`)
+            
+            var message = '클릭한 위치의 좌표 (위도,경도) : ' + latlng.getLat() + ', ' + latlng.getLng();
+            
+            resultDiv.innerHTML = message;
+        });
+
+        var people1 = new kakao.maps.Circle({
+            center : new kakao.maps.LatLng(peopleX, peopleY),  // 원의 중심좌표
+            radius: 5, // 미터 단위의 원의 반지름
+            strokeOpacity: 0, // 선의 불투명도 1에서 0 사이의 값이며 0에 가까울수록 투명
+            fillColor: 'green', // 채우기 색깔
+            fillOpacity: 1  // 채우기 불투명도
+        });
+
+        var ANSANrange = [ // 안산시 범위 다각형
+            new kakao.maps.LatLng(37.345366013401176, 126.78333668729309),
+            new kakao.maps.LatLng(37.35239803210191, 126.8064317710519),
+            new kakao.maps.LatLng(37.349186106146135, 126.82693591397667),
+            new kakao.maps.LatLng(37.33741173896692, 126.86289287290087),
+            new kakao.maps.LatLng(37.33331815195747, 126.87662155964347),
+            new kakao.maps.LatLng(37.29995866705562, 126.89174473030477),
+            new kakao.maps.LatLng(37.27520467234179, 126.86323127643033),
+            new kakao.maps.LatLng(37.255616498182725, 126.84879303952384),
+            new kakao.maps.LatLng(37.28014061840822, 126.80977423926493),
+            new kakao.maps.LatLng(37.31525692962604, 126.72430964796537),
+            new kakao.maps.LatLng(37.33020884672598, 126.73788540580587),
+            new kakao.maps.LatLng(37.324822550305214, 126.74702047813423),
+            new kakao.maps.LatLng(37.33362248985068, 126.74978938950672),
+            new kakao.maps.LatLng(37.340997433317646, 126.76068885204707),
+            new kakao.maps.LatLng(37.34071681402399, 126.78339518403493)
+        ];
+
+        // 지도에 표시할 다각형을 생성합니다
+        var polygon = new kakao.maps.Polygon({
+            path:ANSANrange,
+            strokeWeight: 3,
+            strokeColor: '#000000', 
+            strokeOpacity: 0.8,
+            fillOpacity: 0
+        });
+
+        // 안산 범위 다각형 표시
+        polygon.setMap(map);
+        // 원 표시
+        people1.setMap(map);
+
+
+        const mylocate = document.querySelector('.mylocate');
+
+        let moveOpts = {
+            key: '',
+            d: null
+        }
+        let panto = false;
+        var moveLatLng = new kakao.maps.LatLng(peopleX, peopleY);
+
+        window.onkeydown = (evt) =>{
+            evt.preventDefault();
+            if(['w', 'a', 's', 'd'].includes(evt.key)){
+                if((Math.abs(peopleX - map.getCenter().getLat()) > 0.00005 || Math.abs(peopleY - map.getCenter().getLng()) > 0.00005) && panto == false){
+                    console.log("panto!")
+                    map.panTo(moveLatLng)
+                    moveOpts.key = evt.key;
+                    moveOpts.d = new Date();
+                    panto = true;
+                }else{
+                    moveOpts.key = evt.key;
+                }
+            }
+        }
+        window.onkeyup = (evt)=>{
+            if(evt.key == moveOpts.key){
+                moveOpts.key = '';
+            }
+        }
+
+        const MOVE_PARAMS = {
+            'w': {
+                vx: 0.00005,
+                vy: 0,
+            },
+            's': {
+                vx: -0.00005,
+                vy: 0,
+            },
+            'a': {
+                vx: 0,
+                vy: -0.00005,
+            },
+            'd': {
+                vx: 0,
+                vy: 0.00005,
+            }
+        }
+        setInterval(()=>{ // 플레이 w,a,s,d
+            const p = MOVE_PARAMS[moveOpts.key]
+            if(p != null){
+                if(+moveOpts.d + 500 < +new Date()){
+                    peopleX += p.vx
+                    peopleY += p.vy
+                    moveLatLng = new kakao.maps.LatLng(peopleX, peopleY);
+                    people1.setPosition(moveLatLng)
+                    map.setCenter(moveLatLng);
+                }
+            }
+        }, 50);
+
+        setInterval(()=>{ // 플레이어 위치 표시
+            if(moveOpts.key == ''){
+                mylocate.style.filter = 'opacity(0%) drop-shadow(0 0 3px black)';
+                panto = false;
+            } else {
+                mylocate.style.filter = 'opacity(100%) drop-shadow(0 0 3px black)';
+            }
+        }, 50)
+
+    </script>
 </body>
 </html>
