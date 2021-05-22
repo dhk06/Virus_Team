@@ -39,12 +39,13 @@
         #setUnderBar{
             width: 100vw;
             height: 90px;
-            background: linear-gradient( to right, black 10%, gray 50%, black );
+            background: linear-gradient( to right, black 10%, gray 50%, black);
             position: inherit;
+            z-index: 105;
             bottom: 0;
         }
         #peo1{
-            position: absolute  ;
+            position: absolute;
             width: 10px;
             height: 10px;
             background-color: green;
@@ -67,6 +68,8 @@
             filter: opacity(0%) drop-shadow(0 0 3px black);
 
             animation: move_arrow 0.5s linear infinite alternate forwards;
+
+            user-select: none;
         }
         .Capslock_alert{
             font-size: 25px;
@@ -107,9 +110,9 @@
         let peopleX = 37.32191655510652;
         let peopleY = 126.83084311183287;
 
-        var container = document.getElementById('map');
+        var container = document.getElementById('map')
 
-        var options = {
+        var options = { // 지도 기본 설정
             center: new kakao.maps.LatLng(37.32191655510652, 126.83084311183287), //지도의 중심좌표
             minLevel: 2,
             maxLevel: 6,  
@@ -118,6 +121,11 @@
         
         var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
         
+        const NumOfPeople = 500; //사람 수
+        var peoples = [];
+        people_click = false;
+        let currentPeople = null;
+        let currentPosition = null;
 
         kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
             // 클릭한 위도, 경도 정보 가져오기
@@ -125,49 +133,39 @@
             console.log(`클릭 좌표: ${latlng}`)
             
             var message = '클릭한 위치의 좌표 (위도,경도) : ' + latlng.getLat() + ', ' + latlng.getLng();
-            
+
             resultDiv.innerHTML = message;
         });
 
-        var people = new kakao.maps.Circle({
-            center : new kakao.maps.LatLng(peopleX, peopleY),  // 원의 중심좌표
-            radius: 5, // 미터 단위의 원의 반지름
-            strokeOpacity: 0, // 선의 불투명도 1에서 0 사이의 값이며 0에 가까울수록 투명
-            fillColor: 'green', // 채우기 색깔
-            fillOpacity: 1  // 채우기 불투명도
-        });
+        for(let i = 0; i < NumOfPeople; i++){
+            displayPeo(peoples[i], i);
+        }
 
-        
-        // var people = new kakao.maps.Circle({
-        //         center : new kakao.maps.LatLng(peopleX, peopleY),  // 원의 중심좌표
-        //         radius: 5, // 미터 단위의 원의 반지름
-        //         strokeOpacity: 0, // 선의 불투명도 1에서 0 사이의 값이며 0에 가까울수록 투명
-        //         fillColor: 'green', // 채우기 색깔
-        //         fillOpacity: 1  // 채우기 불투명도
-        //     });
+        function displayPeo(people, i){
 
-        // const NumOfPeople = 1; //사람 수
-        // var peoples = [];
+            randY = 37.33779306610436 - (Math.random() * 0.04);
+            randX = 126.76704681759245 + (Math.random() * 0.1);
 
-        // for(let i = 0; i < NumOfPeople; i++){
-        //     displayPeo(peoples[i]);
-        // }
+            console.log(randX+', '+randY)
 
-        // function displayPeo(popular){
-        //     var people = new kakao.maps.Circle({
-        //         center : new kakao.maps.LatLng(peopleX, peopleY),  // 원의 중심좌표
-        //         radius: 5, // 미터 단위의 원의 반지름
-        //         strokeOpacity: 0, // 선의 불투명도 1에서 0 사이의 값이며 0에 가까울수록 투명
-        //         fillColor: 'green', // 채우기 색깔
-        //         fillOpacity: 1  // 채우기 불투명도
-        //     });
+            var people = new kakao.maps.Circle({
+                center : new kakao.maps.LatLng(randY, randX), // 원의 중심좌표
+                radius: 5, // 미터 단위의 원의 반지름
+                strokeOpacity: 0, // 선의 불투명도 1에서 0 사이의 값이며 0에 가까울수록 투명
+                fillColor: 'green', // 채우기 색깔
+                fillOpacity: 1  // 채우기 불투명도
+            });
 
-        //     console.log(people)
-        //     people.setMap(map);
-            
-        //     // kakao.maps.event.addListener(peoples, 'click', function(mouseEvent){
-        //     // });
-        // }
+            people.setMap(map);
+            peoples.push(people);
+
+            kakao.maps.event.addListener(people, 'click', function(mouseEvent){
+                people_click = true;
+                console.log(people);
+                currentPeople = people;
+                currentPosition = currentPeople.getPosition();
+            });
+        }
 
         var ANSANrange = [ // 안산시 범위 다각형
             new kakao.maps.LatLng(37.345366013401176, 126.78333668729309),
@@ -198,8 +196,6 @@
 
         // 안산 범위 다각형 표시
         polygon.setMap(map);
-        //사람(원)표시
-        people.setMap(map);
 
         const mylocate = document.querySelector('.mylocate');
         const Capslock_alert = document.querySelector('.Capslock_alert');
@@ -217,16 +213,21 @@
                 Capslock_alert.style.filter = 'opacity(100%)';
             }else{
                 Capslock_alert.style.filter = 'opacity(0%)';
-                if(['w', 'a', 's', 'd'].includes(evt.key)){
-                    if((Math.abs(peopleX - map.getCenter().getLat()) > 0.00005 || Math.abs(peopleY - map.getCenter().getLng()) > 0.00005) && panto == false){
+                if(['w', 'a', 's', 'd'].includes(evt.key) && people_click == true){
+                    currentPosition = currentPeople.getPosition();
+                    if((Math.abs(currentPosition.Ma - map.getCenter().getLat()) > 0.00005 || Math.abs(currentPosition.La - map.getCenter().getLng()) > 0.00005) && panto == false){
                         console.log("panto!");
-                        map.panTo(moveLatLng);
+                        map.panTo(currentPosition);
                         moveOpts.key = evt.key;
                         moveOpts.d = new Date();
                         panto = true;
                     }else{
                         moveOpts.key = evt.key;
                     }
+                }else if(evt.keyCode == 27){
+                    console.log('ESC');
+                    people_click = false;
+                    moveOpts.key = '';
                 }
             }
         }
@@ -254,30 +255,26 @@
                 vy: 0.00005,
             }
         }
-        setInterval(()=>{ // 플레이 w,a,s,d
+        setInterval(() => { // 플레이 w,a,s,d
             const p = MOVE_PARAMS[moveOpts.key];
-            if(p != null){
+            if(p != null && currentPeople != null){
                 if(+moveOpts.d + 500 < +new Date()){
-                    peopleX += p.vx;
-                    peopleY += p.vy;
-                    moveLatLng = new kakao.maps.LatLng(peopleX, peopleY);
-                    people.setPosition(moveLatLng);
-                    map.setCenter(moveLatLng);
+                    currentPosition.La += p.vy;
+                    currentPosition.Ma += p.vx;
+                    currentPeople.setPosition(currentPosition);
+                    map.setCenter(currentPosition);
+                    console.log(currentPosition);
                 }
             }
         }, 50);
 
-        setInterval(()=>{ // 플레이어 위치 표시
+        setInterval(() => { // 플레이어 위치 표시
             if(moveOpts.key == ''){
                 mylocate.style.filter = 'opacity(0%) drop-shadow(0 0 3px black)';
                 panto = false;
             } else {
                 mylocate.style.filter = 'opacity(100%) drop-shadow(0 0 3px black)';
             }
-        }, 50)
-
-        setInterval(()=>{
-
         }, 50)
     </script>
 </body>
