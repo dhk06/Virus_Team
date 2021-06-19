@@ -5,43 +5,69 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div id="map"></div>
 
     <div class="Capslock_alert">Capslock 이 켜져있습니다</div>
 
+    <div id="P_inf"></div>
+
     <div id="underbar">
         <div id="resultDiv">클릭한 위치의 좌표 (위도,경도) : </div>
         <div id="setUnderBar">
-            <div id="timeshow">
-                <div id="timeset">II</div>
-                <div></div>
+            <div>
+                <div id="timeshow">
+                    <div id="timeset">II</div>
+                    <div id="timebox">
+                        <div id="Square"></div>
+                        <div id="clock">0 / 0 / 0</div>
+                        <div id="timeShadow"></div> 
+                    </div>
+                    <div id="timeSpeed">
+                        ▶ ▶
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <div class="Peopleshow" id="P_showbox">
+                        👤
+                        <div id="P_show"></div>
+                        <!-- 감염대상자(사람수) -->
+                    </div>
+                    <div class="Peopleshow" id="I_showbox">
+                        👤
+                        <div id="I_show"></div>
+                        <!-- 감염자 -->
+                    </div>
+                    <div class="Peopleshow" id="S_showbox">
+                        👤
+                        <div id="R_show">0</div>
+                        <!-- 회복자 -->
+                    </div>
+                </div>
             </div>
             <div>
-                <div class="Peopleshow" id="P_showbox">
-                    👤
-                    <div id="P_show"></div>
-                </div>
-                <div class="Peopleshow" id="S_showbox">
-                    👤
-                    <div id="S_show">0</div>
-                </div>
-                <div class="Peopleshow" id="I_showbox">
-                    👤
-                    <div id="I_show">0</div>
-                </div>
+                <div class="virus_infection">🦠</div>
             </div>
         </div>
     </div>
 
     <div class="mylocate">▾</div>
 
-    <div class="mainMenu"></div>
-    <div id="mainMenu_contents">
-        <div>📊</div>
-        <div>📈</div>
-        <div>💾</div>
+    <div style="position: absolute; top: 0; left: 0;">
+        <div class="mainMenu"></div>
+        <div id="mainMenu_contents">
+            <div id="barGraph_btn">📊</div>
+            <div id="lineGraph_btn">📈</div>
+            <div id="save_btn">💾</div>
+        </div>
+        <div id="barDiv" class="graphDiv">
+            <canvas class="graph" id="barGraph" width="400" height="400"></canvas>
+        </div>
+        <div id="lineDiv" class="graphDiv">
+            <canvas class="graph" id="lineGraph" width="400" height="400"></canvas>
+        </div>
     </div>
 
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=6d82dc1b5b2fdc74ebac396c0b6b4e5b"></script>

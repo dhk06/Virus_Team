@@ -8,4 +8,12 @@ export interface People {
         y: number
     }
     circle: kakao.maps.Circle,
+    color: string,
+    infection: boolean
+}
+
+export interface numP {
+    wholePer: number,
+    Infectious: number,
+    Resistent: number
 }

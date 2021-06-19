@@ -35,7 +35,7 @@ declare namespace kakao.maps {
       /**
        * 원의 옵션을 설정한다.
        */
-      public setOptions(options: CircleOptions): void;
+      public setOptions(options: Partial<CircleOptions>): void;
   
       /**
        * 원의 중심 좌표를 지정한다.
