@@ -58,9 +58,9 @@ export function init(){
     let n:number = null;
     let snd = 0;
     setInterval(()=>{
-        n = time_DHS.snd % 10;
-        if(n == 0 && snd !== Math.floor(time_DHS.snd / 10)){
-            snd = Math.floor(time_DHS.snd / 10);
+        n = time_DHS.min % 10;
+        if(n == 0 && snd !== Math.floor(time_DHS.min / 10)){
+            snd = Math.floor(time_DHS.min / 10);
             updateChart(lineC)
         }
         if(menuBtn_click.main == false){

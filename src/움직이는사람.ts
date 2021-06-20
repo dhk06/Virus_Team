@@ -107,22 +107,23 @@ function step(){
                     people.changeColor();
                     NumOfPeople.Infectious++;
                     NumOfPeople.wholePer--;
-                    numPshow()
                     infec_peo = false;
                 }
                 continue;
             }
 
-            people.randVel()
-            people.velCheck();
-            people.move()
-            people.limitRange();
-    
-            setPeople = people.circle;
-            setPeoplePosition = setPeople.getPosition();
-            (setPeoplePosition as any).La = people.position.x;
-            (setPeoplePosition as any).Ma = people.position.y;
-            setPeople.setPosition(setPeoplePosition);
+            if(people.die == false){
+                people.randVel()
+                people.velCheck();
+                people.move()
+                people.limitRange();
+
+                setPeople = people.circle;
+                setPeoplePosition = setPeople.getPosition();
+                (setPeoplePosition as any).La = people.position.x;
+                (setPeoplePosition as any).Ma = people.position.y;
+                setPeople.setPosition(setPeoplePosition);
+            }
         }
     }
     

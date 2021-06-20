@@ -9,6 +9,8 @@ export class Person implements People {
     velocity: People["velocity"];
     color: People["color"];
     infection: People["infection"];
+    die : People["die"];
+    fatalityRate: People['fatalityRate'];
 
 
     constructor(map: kakao.maps.Map){
@@ -30,6 +32,8 @@ export class Person implements People {
         this.velocity = { x: 0, y: 0 };
         this.color = 'green';
         this.infection = false;
+        this.fatalityRate = 0;
+        this.die = false;
     }
 
     changeColor(){
@@ -38,6 +42,12 @@ export class Person implements People {
             this.color = 'red';
             this.infection = true;
         }
+    }
+
+    death(){
+        this.circle.setOptions({ fillColor: 'gray' })
+        this.color = 'gray';
+        this.die = true;
     }
 
     randVel(){

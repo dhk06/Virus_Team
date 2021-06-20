@@ -1,5 +1,6 @@
 import { variable, time_DHS } from './variable'
 import { timebox, Square, clock } from './constants'
+import { plusDeadRate } from './사망'
 
 let num = 0;
 export function init(){
@@ -10,20 +11,21 @@ function time(){
     if(variable.movingStart == true){
         Square.style.backgroundColor = '#c9fe71';
 
-        time_DHS.snd++;
+        time_DHS.min++;
         num += timebox.offsetWidth / 1440;
-        if(time_DHS.snd >= 60){
+        if(time_DHS.min >= 60){
             time_DHS.hour++;
-            time_DHS.snd = 0;
+            time_DHS.min = 0;
             if(time_DHS.hour >= 24){
                 time_DHS.date++;
+                plusDeadRate()
                 num = timebox.offsetWidth;
                 time_DHS.hour = 0;
             }
         }
         let d = String(time_DHS.date);
         let h = String(time_DHS.hour);
-        let s = String(time_DHS.snd);
+        let s = String(time_DHS.min);
     
         Square.style.width = `${num}px`;
         if(num > timebox.offsetWidth){

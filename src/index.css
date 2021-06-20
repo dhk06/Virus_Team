@@ -198,12 +198,14 @@ body{
     font-size: 15px;
     box-sizing: border-box;
 }
-#P_showbox{
+#S_showbox{
     color: white;
 }#I_showbox{
     color: red;
-}#S_showbox{
+}#R_showbox{
     color: green;
+}#D_showbox{
+    color: white;
 }
 
 #timeshow{

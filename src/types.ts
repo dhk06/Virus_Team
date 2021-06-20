@@ -9,11 +9,14 @@ export interface People {
     }
     circle: kakao.maps.Circle,
     color: string,
-    infection: boolean
+    infection: boolean,
+    die: boolean,
+    fatalityRate: number
 }
 
 export interface numP {
     wholePer: number,
     Infectious: number,
-    Resistent: number
+    Recovered: number,
+    deadPer: number
 }

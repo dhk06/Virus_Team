@@ -27,5 +27,5 @@ export let menuBtn_click = {
 export let time_DHS = {
     date: 0,
     hour: 0,
-    snd: 0
+    min: 0
 }

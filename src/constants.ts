@@ -50,7 +50,8 @@ export const MOVE_PARAMS = {
 export const _NumOfPeople: numP = {
     wholePer: 800,
     Infectious: 0,
-    Resistent: 0
+    Recovered: 0,
+    deadPer: 0
 }
 
 export const NumOfPeople = new Proxy(
@@ -60,7 +61,7 @@ export const NumOfPeople = new Proxy(
         },
         set: function(target, name, value){
             target[name] = value
-            if(name === 'Infectious'){
+            if(name == 'wholePer' || name == 'Infectious' || name == 'Recovered' || name == 'deadPer'){
                 numPshow()
             }
             return true;
