@@ -67,6 +67,7 @@ export function init(){
         barDiv.style.display = 'none';
         barC.hide(0)
         menuBtn_click.bar = false;
+        barDiv.style.zIndex = '150';
     }
     
     function updateChart(chart:Chart<"bar", number[], string>) {

@@ -18,7 +18,7 @@ function Fper(p:Person, per:number){
     if(rand <= num){
         p.death()
         NumOfPeople.Infectious--;
-        NumOfPeople.Recovered++;
+        NumOfPeople.deadPer++;
     }
 }
 

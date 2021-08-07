@@ -15,7 +15,7 @@ export function init(){
                 backgroundColor: 'rgba(99, 255, 132, 0.2)',
                 borderColor: 'rgba(99, 255, 132, 1)',
                 order: 2,
-                tension: 0.2
+                tension: 0.4
             }, {
                 label: 'I',
                 data: [],
@@ -23,7 +23,7 @@ export function init(){
                 borderColor: 'rgba(255, 99, 132, 1)',
                 type: 'line',
                 order: 1,
-                tension: 0.2
+                tension: 0.4
             }, {
                 label: 'R',
                 data: [],
@@ -31,7 +31,7 @@ export function init(){
                 borderColor: 'rgba(255, 206, 86, 1)',
                 type: 'line',
                 order: 3,
-                tension: 0.2
+                tension: 0.4
             }],
             labels: []
         },
@@ -49,6 +49,9 @@ export function init(){
                     borderWidth: 0,
                     borderColor: 'transparent'
                 }
+            },
+            interaction: {
+                intersect: false
             }
         }
     });
@@ -87,6 +90,7 @@ export function init(){
     if(menuBtn_click.main == true){
         lineDiv.style.display = 'none';
         lineC.hide(0)
+        lineDiv.style.zIndex = '150';
         menuBtn_click.line = false;
     }
     

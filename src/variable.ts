@@ -29,3 +29,7 @@ export let time_DHS = {
     hour: 0,
     min: 0
 }
+
+export let arriveClick = {
+    click: null
+};

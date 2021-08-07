@@ -1,6 +1,7 @@
 import { People } from './types'
 import { ANSANrange, ANSANvector } from './constants'
 import { variable } from './variable'
+import { pointData, lineData } from './roadPoint'
 
 
 export class Person implements People {
@@ -9,17 +10,18 @@ export class Person implements People {
     velocity: People["velocity"];
     color: People["color"];
     infection: People["infection"];
-    die : People["die"];
+    die: People["die"];
     fatalityRate: People['fatalityRate'];
-
-
+    locNum: People['locNum'];
+    
     constructor(map: kakao.maps.Map){
-
-        let randY:number = 37.33779306610436 - (Math.random() * 0.04);
-        let randX:number = 126.78069681759245 + (Math.random() * 0.08);
+        let loc:number = null;
+        let randLocation:kakao.maps.LatLng = null;
+        loc = Math.floor(Math.random() * pointData.length);
+        randLocation = pointData[loc].latlng;
 
         this.circle = new kakao.maps.Circle({
-            center : new kakao.maps.LatLng(randY, randX), // 원의 중심좌표
+            center : randLocation, // 원의 중심좌표
             radius: 5, // 미터 단위의 원의 반지름
             strokeOpacity: 0, // 선의 불투명도 1에서 0 사이의 값이며 0에 가까울수록 투명
             fillColor: 'green', // 채우기 색깔
@@ -28,12 +30,13 @@ export class Person implements People {
         
         this.circle.setMap(map);
 
-        this.position = { x: randX, y: randY };
+        this.position = { x: randLocation.getLng(), y: randLocation.getLat() };
         this.velocity = { x: 0, y: 0 };
         this.color = 'green';
         this.infection = false;
         this.fatalityRate = 0;
         this.die = false;
+        this.locNum = loc;
     }
 
     changeColor(){
@@ -97,5 +100,80 @@ export class Person implements People {
                 break;
             }
         }
+    }
+
+    newMoving(){
+        let lineNum:number;
+        let nexNum:number = null;
+        let locNum:number = this.locNum;
+        const moving = (speed:number, lineNum:number, from:kakao.maps.LatLng) => {
+            const followRoad = () =>{
+                let index = 0;
+                let i = 0;
+                let n:1|-1 = null;
+                const fx = from.getLat();
+                const fy = from.getLng();
+                const fl_x = lineData[lineNum].linePath[i].getLat();
+                const fl_y = lineData[lineNum].linePath[i].getLng();
+                const result = (((fx - fl_x) ** 2 + (fy - fl_y) ** 2) ** 0.5)
+                if(result <= 0.0002){
+                    i = 0
+                    n = 1;
+                }else{
+                    i = lineData[lineNum].linePath.length - 1;
+                    n = -1;
+                }
+                const moving1road = (time:number) => {
+                    const prex = lineData[lineNum].linePath[i].getLng();
+                    const prey = lineData[lineNum].linePath[i].getLat();
+                    const nexx = lineData[lineNum].linePath[i + n].getLng();
+                    const nexy = lineData[lineNum].linePath[i + n].getLat();
+                    const dist = ((nexx - prex) ** 2 + (nexy - prey) ** 2) ** 0.5 * speed;
+                    const X = (index * nexx + (dist - index) * prex) / dist;
+                    const Y = (index * nexy + (dist - index) * prey) / dist;
+                    const position = new kakao.maps.LatLng(Y, X);
+                    this.position.x = position.getLng();
+                    this.position.y = position.getLat();
+                    index++;
+                    
+                    if(index >= dist){
+                        index = 0;
+                        i++;
+                        if(i >= lineData[lineNum].linePath.length - 1){
+                            findmove();
+                            return;
+                        }
+                    }
+                    requestAnimationFrame(moving1road);
+                };
+                moving1road(0);
+            }
+            followRoad();
+        }
+        const findmove = () =>{
+            const from = pointData[locNum]; // start point
+            const lines = from.lines.concat();
+            for(let i = 0; i < lines.length; i++){
+                const temp = Math.floor(Math.random() * (lines.length - i)) + i;
+                const val = lines[i];
+                lines[i] = lines[temp];
+                lines[temp] = val;
+            }
+
+            for(let i of lines){
+                lineNum = i;
+                const picks = lineData[lineNum].points.filter(v => v !== locNum); // 시작점 반대 points 
+                if(!picks){
+                    continue;
+                }
+                nexNum = picks[Math.floor(picks.length * Math.random())]; // 도착할 point number
+                const to = pointData[nexNum]; // arrive point
+                const speed = 100000;
+                moving(speed, lineNum, from.latlng);
+                locNum = Number(nexNum);
+                break;  
+            }
+        }
+        findmove();
     }
 }

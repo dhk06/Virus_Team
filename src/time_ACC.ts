@@ -1,8 +1,8 @@
 import { timeSpeed } from './constants'
 import { variable } from './variable'
 import { MOVE_PARAMS } from './constants'
-import { time } from './타임박스'
-import { fun } from './감염범위'
+import { time } from './timeBox'
+import { fun } from './infec_range'
 
 let check = 0;
 

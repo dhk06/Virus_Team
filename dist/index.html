@@ -6,14 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
+<script defer src="runtime.js"></script><script defer src="vendors.js"></script><script defer src="bundle.js"></script></head>
 <body>
     <div id="map"></div>
     
     <div class="Capslock_alert">Capslock 이 켜져있습니다</div>
     
-    <div id="P_inf">0</div>
-
+    <div id="P_inf"></div>
     <div id="underbar">
         <div id="resultDiv">클릭한 위치의 좌표 (위도,경도) : </div>
         <div id="setUnderBar">
@@ -84,6 +83,7 @@
             <canvas class="graph" id="lineGraph" width="400" height="400"></canvas>
         </div>
     </div>
+
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=6d82dc1b5b2fdc74ebac396c0b6b4e5b"></script>
 </body>
 </html>

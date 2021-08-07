@@ -1,5 +1,5 @@
 import { numP } from './types'
-import { numPshow } from './사람수출력'
+import { numPshow } from './output_nOp'
 
 export const ANSANrange = [ // 안산시 범위 다각형
     new kakao.maps.LatLng(37.34536601340117, 126.7833366872930),

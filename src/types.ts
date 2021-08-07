@@ -11,7 +11,8 @@ export interface People {
     color: string,
     infection: boolean,
     die: boolean,
-    fatalityRate: number
+    fatalityRate: number,
+    locNum: number
 }
 
 export interface numP {

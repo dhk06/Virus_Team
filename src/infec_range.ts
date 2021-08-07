@@ -1,7 +1,7 @@
 import { Person } from './person'
 import { NumOfPeople } from './constants'
 import { peoples, variable } from './variable'
-import { numPshow } from './사람수출력';
+import { numPshow } from './output_nOp';
 
 export function init(){
     variable.set2 = setInterval(fun, variable.speedValue2)

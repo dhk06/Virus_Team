@@ -1,6 +1,6 @@
 import { variable, time_DHS } from './variable'
 import { timebox, Square, clock } from './constants'
-import { plusDeadRate } from './사망'
+import { plusDeadRate } from './Death'
 
 let num = 0;
 export function init(){

@@ -29,8 +29,6 @@ body{
     z-index: 100;
 }
 #setUnderBar{
-    display: flex;
-
     width: 100vw;
     height: 90px;
     background: linear-gradient( to right, #1e201f 10%, gray 50%, #1e201f);
@@ -84,7 +82,6 @@ body{
 
     filter: opacity(0%);
 }
-
 
 @keyframes move_arrow{ /* 플레이어 위치 화살표 애니메이션 */
     from {transform: translate(-50%, 0%);}
@@ -217,12 +214,11 @@ body{
     background-color: #323235;
     color: white;
     border-radius: 5px;
-
-    box-sizing: border-box;
+    border: 1px solid #4b4b52;
 }
 #timeset{
     width: 25px;
-    height: 25px;
+    height: 100%;
     background-color: #1e201f;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -232,7 +228,7 @@ body{
 }
 #timeSpeed{
     width: 25px;
-    height: 25px;
+    height: 100%;
     background-color: #1e201f;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -240,7 +236,7 @@ body{
     text-align: center;
 
     word-spacing: -10px;
-    line-height: 22px;
+    line-height: 21px;
 
     cursor: pointer;
     user-select: none;
@@ -250,10 +246,9 @@ body{
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    width: 22px;
-    height: 22px;
+    width: 25px;
+    height: 25px;
 
-    background-color: #3f3f46;
     border-radius: 5px;
 
     user-select: none;
@@ -266,7 +261,7 @@ body{
     display: flex;
 
     width: 100%;
-    height: 25px;
+    height: 100%;
     align-items: center;
 }
 #timeShadow{
@@ -277,6 +272,21 @@ body{
     height: 100%;
     box-shadow: 0 0 5px black inset;
     background-color: transparent;
+}
+#world_name{
+    position: relative;
+
+    width: 240px;
+    height: 25px;
+    margin: 0 50px;
+    text-align: center;
+    padding: 2px 0;
+    font-size: 15px;
+    background-color: #1e201f;
+    color: white;
+    border-radius: 5px;
+
+    box-sizing: border-box;
 }
 #Square{
     width: 0px;
@@ -309,7 +319,7 @@ body{
     position: absolute;
     top: 15px;
     right: 15px;
-    z-index: 105;
+    z-index: 1000;
 
     text-align: right;
     font-size: 20px;
@@ -337,4 +347,65 @@ body{
     top: 50px;
     left: 80px;
     z-index: 150;
+}
+
+.area{
+    position: absolute;
+    background: #fff;
+    border: 1px solid #888;
+    border-radius: 3px;
+    font-size: 12px;
+    top: -5px;
+    left: 15px;
+    padding:2px;
+    font-size: 15px;
+    font-weight: bolder;
+}
+
+.part{
+    width: 100%;
+    align-items: center;
+    box-sizing: border-box;
+}
+#part1{
+    height: 60%;
+    justify-content: center;
+}
+#part2{
+    position: inherit;
+    height: 40%;
+
+    bottom: 0;
+    padding: 0px 50px;
+    align-items: flex-start;
+}
+.policy{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 35px;
+    background-color: #4b4b52;
+
+    margin: 0 10px;
+    border-radius: 5px;
+    font-size: 22px;
+
+    user-select: none;
+}
+.pol_input input[type="checkbox"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip:rect(0,0,0,0);
+    border: 0;
+}
+.pol_input input[type="checkbox"] + label {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
 }
