@@ -1,7 +1,8 @@
-
 import { map } from "./setting_map";
 import { arriveClick } from "./variable";
-import { per_click } from "./임시사람"
+import { Warning_alert } from "./constants";
+import { _per_click, _per_arrive } from "./person"
+import { move2ClickedPlace_before } from "./moving_people";
 
 export const pointData:{
     name:string;
@@ -134,11 +135,14 @@ function displayPoint(arr:typeof pointData[0]){
         customOverlay.setPosition(mouseEvent.latLng);
     });
     kakao.maps.event.addListener(circle, 'click', function() {
-        if(per_click){
-            arriveClick.click = circle.getPosition();
-            // moveClickedPlace();
+        if(_per_click){
+            if(_per_arrive){
+                arriveClick.location = circle.getPosition();
+                move2ClickedPlace_before(Number(arr.name), arriveClick.location);
+            }else{
+                console.log("It's moving now")
+            }
         }
-        
     });
     circle.setMap(map);
 }

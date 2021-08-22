@@ -19,8 +19,12 @@ function fun(){
     
                     let result = Math.sqrt(Math.pow(p1x - p2x, 2) + Math.pow(p1y - p2y, 2));
                     if(result < 0.001){
-                        console.log('a')
-                        per(10, peoples[j]);
+                        if(peoples[j].mask){
+                            console.log('wear a mask')
+                            per(3, peoples[j])
+                        }else{
+                            per(10, peoples[j]);
+                        }
                     }
                 }
             }
@@ -35,7 +39,7 @@ function per(n: number, peo: Person){
         peo.changeColor();
         NumOfPeople.Infectious++;
         NumOfPeople.wholePer--;
-        numPshow()
+        numPshow();
     }
 }
 

@@ -10,5 +10,5 @@ var polygon = new kakao.maps.Polygon({
 });
 
 export function init(map: kakao.maps.Map){
-    polygon.setMap(map)
+    // polygon.setMap(map)
 }

@@ -12,7 +12,12 @@ export interface People {
     infection: boolean,
     die: boolean,
     fatalityRate: number,
-    locNum: number
+    locNum: number,
+    per_click: boolean,
+    per_arrive: boolean,
+    lineNum: number;
+    nexNum: number;
+    mask: boolean;
 }
 
 export interface numP {

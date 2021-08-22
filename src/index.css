@@ -52,25 +52,22 @@ body{
 }
 .mylocate{
     display: flex;
-    font-size: 60px;
-    font-weight: bolder;
     height: 50px;
     line-height: 50px;
-    color: white;
+    /* color: white; */
 
     position: absolute;
     z-index: 102;
-    top: calc(50% - 100px);
     left: 50%;
-    transition: all 0.5s;
+    /* transition: all 0.1s; */
     transform: translate(-50%, -20%);
-    filter: opacity(0%) drop-shadow(0 0 3px black);
-
-    animation: move_arrow 0.5s linear infinite alternate forwards;
-
+    /* filter: drop-shadow(0 0 3px black); */
+    
     user-select: none;
+    top: calc(50% - 100px);
 }
-.Capslock_alert{
+.Warning_alert{
+    display: none;
     font-size: 25px;
     font-weight: bolder;
 
@@ -81,12 +78,15 @@ body{
     z-index: 1;
 
     filter: opacity(0%);
+
+    transition: all 0s;
 }
 
-@keyframes move_arrow{ /* 플레이어 위치 화살표 애니메이션 */
+/* 플레이어 위치 화살표 애니메이션 */
+/* @keyframes move_arrow{ 
     from {transform: translate(-50%, 0%);}
     to {transform: translate(-50%, -20%);}
-}
+} */
 
 
 /* 사이트 메인 메뉴 애니메이션 */
@@ -242,7 +242,7 @@ body{
     user-select: none;
 }
 
-.virus_infection{
+#virus_infection{
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -251,8 +251,9 @@ body{
 
     border-radius: 5px;
 
+    cursor: pointer;
     user-select: none;
-}.virus_infection:active{
+}#virus_infection:active{
     background-color: #323235;
 }
 

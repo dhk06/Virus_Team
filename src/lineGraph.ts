@@ -1,6 +1,7 @@
 import { Chart, registerables } from 'chart.js'
 import { menuBtn_click, variable, time_DHS } from './variable'
-import { NumOfPeople, lineDiv, lineGraph, lineGraph_btn } from './constants'
+import { NumOfPeople, lineDiv, lineGraph, lineGraph_btn, save_btn } from './constants'
+import { worldname, np } from "./index";
 
 Chart.register(...registerables);
 const arr = ['wholePer', 'Infectious', 'Resistent'];
@@ -100,5 +101,25 @@ export function init(){
             dataset.data.push(NumOfPeople[arr[index]]);
         });
         chart.update();
+    }
+
+    type wldData = {
+        wldname: string;
+        population: number;
+        lineGraph: Chart;
+    }
+    
+    const worldData:wldData[] = [];
+    
+    let worldNumber = 1;
+    
+    save_btn.onclick = () =>{
+        worldData[worldNumber] = {
+            wldname: worldname,
+            population: np,
+            lineGraph: lineC
+        }
+        console.log(worldData[worldNumber])
+        worldNumber++;
     }
 }

@@ -1,7 +1,7 @@
 import { Person } from './person'
 
 export let moveOpts = {
-    key: '',
+    check: false,
     d: null
 }
 
@@ -11,9 +11,9 @@ export let variable = {
     movingStart: true,
     panto: false,
     speedValue1: 200,
-    set1:null,
+    set1: null,
     speedValue2: 500,
-    set2:null,
+    set2: null,
     velRange: 0.00001
 }
 
@@ -30,6 +30,8 @@ export let time_DHS = {
     min: 0
 }
 
-export let arriveClick = {
-    click: null
+export let arriveClick: {
+    location: kakao.maps.LatLng
+} = {
+    location: null
 };

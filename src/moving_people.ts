@@ -1,4 +1,4 @@
-import { MOVE_PARAMS, NumOfPeople, timeset, Capslock_alert, virus_infection, P_inf } from './constants'
+import { MOVE_PARAMS, NumOfPeople, timeset, Warning_alert, virus_infection, pol_mask } from './constants'
 import { Person } from './person'
 import { moveOpts, peoples, variable } from './variable'
 import { numPshow } from './output_nOp'
@@ -11,59 +11,27 @@ let map: kakao.maps.Map = null;
 
 export function init(_map: kakao.maps.Map){
     map = _map
-
+    
     for(let i = 0; i < NumOfPeople.wholePer; i++){
         const person = new Person(map)
         peoples.push(person)
-    
         kakao.maps.event.addListener(person.circle, 'click', function(mouseEvent){
             currentPeople = person;
-
-            P_inf.style.display = 'block';
-            P_inf.innerHTML = `x: ${peoples[i].position.x}<br>y: ${peoples[i].position.y}<br>infection: ${peoples[i].infection}`;
-            P_inf.style.filter = 'opacity(100%)';
-            P_inf.style.transition = 'all 0.3s';
-            setTimeout(() => {
-                P_inf.style.filter = 'opacity(0%)';
-                setTimeout(()=>{
-                    P_inf.style.display = 'none';
-                    P_inf.style.transition = 'all 0s';
-                }, 300)
-            }, 1500);
         });
     }
+    
+    for(let i = 0; i < peoples.length; i++){
+        const people = peoples[i];
+        people.findmove();
+    }
 
-    numPshow()
-
-    // window.onkeydown = (evt) =>{
-    //     if(evt.getModifierState("CapsLock") == true){
-    //         Capslock_alert.style.filter = 'opacity(100%)';
-    //     }else{
-    //         Capslock_alert.style.filter = 'opacity(0%)';
-    //         if(['w', 'a', 's', 'd'].includes(evt.key) && currentPeople != null){
-    //             const currentPosition = currentPeople.circle.getPosition();
-    //             if((Math.abs(currentPeople.position.y - map.getCenter().getLat()) > 0.00005 || Math.abs(currentPeople.position.x - map.getCenter().getLng()) > 0.00005) && variable.panto == false){
-    //                 console.log("panto!");
-    //                 map.panTo(currentPosition);
-    //                 moveOpts.key = evt.key;
-    //                 moveOpts.d = new Date();
-    //                 variable.panto = true;
-    //             }else{
-    //                 moveOpts.key = evt.key;
-    //             }
-    //         }else if(evt.keyCode == 27){
-    //             console.log('ESC');
-    //             moveOpts.key = ''; 
-    //             currentPeople = null;
-    //         }
-    //     }
-    // }
+    numPshow();
     
     window.onkeyup = (e) =>{
         if(e.keyCode == 32){
             console.log('spacebar')
             if(timeset.innerHTML == 'II'){
-                timeset.innerHTML = '▶';765435
+                timeset.innerHTML = '▶';
                 timeset.style.lineHeight = 'normal';
                 variable.movingStart = false;
             }else{
@@ -71,23 +39,36 @@ export function init(_map: kakao.maps.Map){
                 timeset.style.lineHeight = '25px';
                 variable.movingStart = true;
             }
-        }else if(e.key == moveOpts.key){
-            moveOpts.key = '';
         }
     }
 
-    requestAnimationFrame(step)
+    // step();
 
     virus_infection.addEventListener('click', function(){
-        if(currentPeople != null){
-            infec_peo = true;
+        if(currentPeople != null && currentPeople.color == 'green'){
+            console.log('change!')
+            currentPeople.changeColor();
+            NumOfPeople.Infectious++;
+            NumOfPeople.wholePer--;
+        }else if(currentPeople == null){
+            console.log('currentPeople is null')
         }
     });
 
+    pol_mask.addEventListener('click', function(){
+        for(let i = 0; i < peoples.length; i++){
+            const people = peoples[i];
+            people.WearAMast_toggle();
+        }
+    })
+}
+
+export function move2ClickedPlace_before(arrName: number, arriveLocation: kakao.maps.LatLng){
     for(let i = 0; i < peoples.length; i++){
         const people = peoples[i];
-        if(variable.movingStart == true){
-            // people.newMoving();
+        if(people.per_click){
+            people.move2ClickedPlace(arrName, arriveLocation);
+            break;
         }
     }
 }
@@ -106,29 +87,6 @@ function step(){
     //     }
     // }
     
-    for(let i = 0; i < peoples.length; i++){
-        const people = peoples[i];
-        if(variable.movingStart == true){
-            if(currentPeople == people){
-                if(infec_peo == true && people.color == 'green'){
-                    people.changeColor();
-                    NumOfPeople.Infectious++;
-                    NumOfPeople.wholePer--;
-                    infec_peo = false;
-                }
-                continue;
-            }
-            // if(people.die == false){
-            //     people.newMoving();
-                
-            //     setPeople = people.circle;
-            //     setPeoplePosition = setPeople.getPosition();
-            //     (setPeoplePosition as any).La = people.position.x;
-            //     (setPeoplePosition as any).Ma = people.position.y;
-            //     setPeople.setPosition(setPeoplePosition);
-            // }
-        }
-    }
     
     requestAnimationFrame(step)
 }
