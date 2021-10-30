@@ -2,7 +2,7 @@ import { map } from "./setting_map";
 import { arriveClick } from "./variable";
 import { Warning_alert } from "./constants";
 import { _per_click, _per_arrive } from "./person"
-import { move2ClickedPlace_before } from "./moving_people";
+import { move2ClickedPlace_before } from "./main_control";
 
 export const pointData:{
     name:string;
@@ -125,7 +125,7 @@ function displayPoint(arr:typeof pointData[0]){
     
     kakao.maps.event.addListener(circle, 'mouseover', function(mouseEvent) {
         customOverlay.setContent(`<div class='area'>${arr.name}</div>`);
-        customOverlay.setPosition(mouseEvent.latLng); 
+        customOverlay.setPosition(mouseEvent.latLng);
         customOverlay.setMap(map);
     });
     kakao.maps.event.addListener(circle, 'mouseout', function() {

@@ -1,3 +1,4 @@
+import { Area } from './Area';
 import { Person } from './person'
 
 export let moveOpts = {
@@ -6,13 +7,14 @@ export let moveOpts = {
 }
 
 export let peoples: Person[] = [];
+export let areas: Area[] = [];
 
 export let variable = {
     movingStart: true,
     panto: false,
     speedValue1: 200,
     set1: null,
-    speedValue2: 500,
+    speedValue2: 700,
     set2: null,
     velRange: 0.00001
 }

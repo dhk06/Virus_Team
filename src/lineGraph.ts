@@ -1,10 +1,10 @@
 import { Chart, registerables } from 'chart.js'
 import { menuBtn_click, variable, time_DHS } from './variable'
 import { NumOfPeople, lineDiv, lineGraph, lineGraph_btn, save_btn } from './constants'
-import { worldname, np } from "./index";
+import { setting } from "./main";
 
 Chart.register(...registerables);
-const arr = ['wholePer', 'Infectious', 'Resistent'];
+const arr = ['wholePer', 'Infectious', 'Recovered', 'deadPer'];
 export function init(){
     const lineC = new Chart(lineGraph, {
         type: 'line',
@@ -28,10 +28,18 @@ export function init(){
             }, {
                 label: 'R',
                 data: [],
+                backgroundColor: 'rgba(100, 100, 100, 0.2)',
+                borderColor: 'rgba(100, 100, 100, 1)',
+                type: 'line',
+                order: 3,
+                tension: 0.4
+            }, {
+                label: 'D',
+                data: [],
                 backgroundColor: 'rgba(255, 206, 86, 0.2)',
                 borderColor: 'rgba(255, 206, 86, 1)',
                 type: 'line',
-                order: 3,
+                order: 4,
                 tension: 0.4
             }],
             labels: []
@@ -115,8 +123,8 @@ export function init(){
     
     save_btn.onclick = () =>{
         worldData[worldNumber] = {
-            wldname: worldname,
-            population: np,
+            wldname: setting.worldname,
+            population: setting.np,
             lineGraph: lineC
         }
         console.log(worldData[worldNumber])

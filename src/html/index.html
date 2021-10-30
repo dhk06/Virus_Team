@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>World_setting</title>
     <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=6d82dc1b5b2fdc74ebac396c0b6b4e5b"></script>
-<script defer src="runtime_bundle.js"></script><script defer src="vendors_bundle.js"></script><script defer src="index_bundle.js"></script></head>
+</head>
 <body>
     <div id="backgroundimg"></div>
     <div id="worldSetting">바이러스 시뮬레이션</div>
@@ -15,7 +15,7 @@
             <div class="setSubBox">
                 <div class="settingContents">
                     <div class="contentsName">도시</div>
-                    <input class="setinput moveright" id="set_worldname" type="text" placeholder="NAME" minlength="1" maxlength="12"
+                    <input class="setinput moveright" id="set_worldname" type="text" placeholder="도시명을 적어주세요" minlength="1" maxlength="12"
                         value="meta-1" required>
                 </div><hr>
                 <div class="settingContents">
@@ -29,7 +29,7 @@
                             <option value="100">500</option>
                             <option value="100">600</option>
                             <option value="100">700</option>
-                            <option value="100">800</option>
+                            <option value="100"selected>800</option>
                             <option value="100">900</option>
                             <option value="100">1000</option>
                             <option value="100">1100</option>
@@ -42,7 +42,7 @@
                 </div><hr>
                 <div class="settingContents">
                     <div class="contentsName">감염자</div>
-                    <input class="setinput moveright" id="set_infecPeo" type="number" min="0" max="800" placeholder="감염자 수" value="0"
+                    <input class="setinput moveright" id="set_infecPeo" type="number" min="0" max="800" placeholder="초기감염자 수를 정해주세요" value="0"
                         required>
                 </div><hr>
                 <div id="set_hospitalSystem">

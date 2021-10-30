@@ -1,42 +1,83 @@
 import './index.css'
-import { init as 지도설정 } from './setting_map'
-import { init as 안산범위 } from './ansanRange'
-import { init as html애니메이션 } from './side_menu'
-import { init as 움직 } from './moving_people'
-import { init as 감염범위 } from './infec_range'
-import { init as timebox } from './timeBox'
-import { init as playerLocation } from './player_location'
-import { init as 시간가속 } from './time_ACC'
-import { init as 막대 } from './barGraph'
-import { init as 선 } from './lineGraph'
-import { init as roadpoint } from './roadPoint'
-import { init as hospital } from './hospital_data'
-// import { init as 임시사람 } from './임시사람'
-import { NumOfPeople } from './constants'
-
-const world_name = document.querySelector('#world_name');
-export let worldname:string;
-export let np:number;
-
-async function init(){
-    worldname = prompt("What's the name of this world?", 'meta_1');
-    np = Number(prompt(`How many people in ${worldname}`, '800'));
-    NumOfPeople.wholePer = np;
-    world_name.innerHTML = worldname;
-
-    const { map } = 지도설정()
-    안산범위(map)
-    hospital(map)
-    await roadpoint()
-    html애니메이션()
-    움직(map)
-    // 임시사람(map)
-    감염범위()
-    timebox()
-    playerLocation()
-    시간가속()
-    막대()
-    선()
+// import { NumOfPeople } from './constants'
+export type settingType = {
+    worldname: string,
+    np: number,
+    hospitalSystem: boolean,
+    infecP: number
+}
+export const setting:settingType = {
+    worldname: null,
+    np: null,
+    hospitalSystem: null,
+    infecP: null
 }
 
-init()
+// worldname = prompt("What's the name of this world?", 'meta_1');
+// np = Number(prompt(`How many people in ${worldname}`, '800'));
+// infecP = Number(prompt(`How many infected people in ${worldname}`, '0'))
+// hospitalSystem = confirm("Hospital System");
+// NumOfPeople.wholePer = np;
+// world_name.innerHTML = worldname;
+// NumOfPeople.Infectious = infecP;
+// location.href = './html/index.html';
+
+const setComplete = document.querySelector<HTMLButtonElement>('#setComplete');
+const set_worldname = document.querySelector<HTMLInputElement>('#set_worldname');
+const set_numOfPeo = document.querySelector<HTMLSelectElement>('#set_numOfPeo');
+const set_infecPeo = document.querySelector<HTMLInputElement>('#set_infecPeo');
+const set_hospitalSystem = document.querySelector<HTMLInputElement>('#set_hospitalSystem');
+
+let set_hospitalSystem_checked:boolean = false;
+
+set_hospitalSystem.onclick = () =>{
+    if(!set_hospitalSystem_checked){
+        set_hospitalSystem.innerHTML = '병원 시스템 활성화';
+        set_hospitalSystem.style.backgroundColor = 'rgb(225, 225, 225)';
+        set_hospitalSystem_checked = true;
+    }else{
+        set_hospitalSystem.innerHTML = '병원 시스템 비활성화';
+        set_hospitalSystem.style.backgroundColor = 'rgb(180, 180, 180)';
+        set_hospitalSystem_checked = false;
+    }
+}
+set_hospitalSystem.onmouseout = () =>{
+    if(set_hospitalSystem_checked){
+        set_hospitalSystem.style.backgroundColor = 'rgb(225, 225, 225)';
+    }else{
+        set_hospitalSystem.style.backgroundColor = 'rgb(180, 180, 180)';
+    }
+}
+set_hospitalSystem.onmouseover = () =>{
+    if(set_hospitalSystem_checked){
+        set_hospitalSystem.style.backgroundColor = 'rgb(210, 210, 210)';
+    }else{
+        set_hospitalSystem.style.backgroundColor = 'rgb(165, 165, 165)';
+    }
+}
+set_hospitalSystem.onmousedown = () =>{
+    set_hospitalSystem.style.backgroundColor = 'rgb(150, 150, 150)';
+}
+
+setComplete.addEventListener('click', function(){
+    locationHref();
+});
+document.onkeyup = e =>{
+    if(e.key == 'Enter'){
+        locationHref();
+    }
+}
+
+function locationHref(){
+    setting.worldname = set_worldname.value;
+    setting.np = Number(set_numOfPeo.options[set_numOfPeo.selectedIndex].text) - Number(set_infecPeo.value);
+    if(set_hospitalSystem_checked){
+        setting.hospitalSystem = true;
+    }else{
+        setting.hospitalSystem = false;
+    }
+    setting.infecP = Number(set_infecPeo.value);
+    
+    location.href = `/main.html?json=${JSON.stringify(setting)}`
+    // console.log(setting)
+}

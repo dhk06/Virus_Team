@@ -6,8 +6,8 @@ function plusDeadRate() {
     for (let i = 0; i < peoples.length; i++) {
         const p = peoples[i];
         if (p.color == 'red') {
-            p.fatalityRate++;
-            Fper(p, p.fatalityRate);
+            p.deathRate++;
+            Fper(p, p.deathRate);
         }
     }
 }
@@ -17,9 +17,8 @@ function Fper(p: Person, per: number) {
     let num = per / 100;
     if (rand <= num) {
         p.death();
-        NumOfPeople.Infectious--;
         NumOfPeople.deadPer++;
     }
 }
 
-export { plusDeadRate }
+export { plusDeadRate, Fper }

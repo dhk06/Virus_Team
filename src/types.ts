@@ -3,21 +3,29 @@ export interface People {
         x: number,
         y: number
     }
-    velocity: {
-        x: number,
-        y: number
-    }
     circle: kakao.maps.Circle,
     color: string,
     infection: boolean,
     die: boolean,
-    fatalityRate: number,
+    deathRate: number,
+    infectionRate: number,
     locNum: number,
     per_click: boolean,
     per_arrive: boolean,
     lineNum: number;
     nexNum: number;
     mask: boolean;
+    goToHospital_: boolean;
+    hvToGoHospital: boolean;
+    nearestHospital: {
+        distance:number,
+        entrance:number,
+        hospitalNumber:number
+    }[]
+}
+
+export interface AreaType {
+    
 }
 
 export interface numP {

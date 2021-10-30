@@ -11,7 +11,7 @@ function fun(){
     if(variable.movingStart == true){
         for(let i = 0; i < peoples.length; i++){
             for(let j = 0; j < peoples.length; j++){
-                if(peoples[i].color == 'red' && peoples[j].color == 'green'){
+                if(peoples[i].infection == true && peoples[j].infection == false){
                     const p1x = peoples[i].position.x;
                     const p1y = peoples[i].position.y;
                     const p2x = peoples[j].position.x;
@@ -19,12 +19,7 @@ function fun(){
     
                     let result = Math.sqrt(Math.pow(p1x - p2x, 2) + Math.pow(p1y - p2y, 2));
                     if(result < 0.001){
-                        if(peoples[j].mask){
-                            console.log('wear a mask')
-                            per(3, peoples[j])
-                        }else{
-                            per(10, peoples[j]);
-                        }
+                        // per(peoples[j].infectionRate, peoples[j])
                     }
                 }
             }

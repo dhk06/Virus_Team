@@ -10,10 +10,10 @@ export function init(){
     const barC = new Chart(barGraph, {
         type: 'bar',
         data: {
-            labels: ['S', 'I', 'R'],
+            labels: ['S', 'I', 'R', 'D'],
             datasets: [{
                 label: 'bar_Graph',
-                data: [NumOfPeople.wholePer, NumOfPeople.Infectious, NumOfPeople.Recovered],
+                data: [NumOfPeople.wholePer, NumOfPeople.Infectious, NumOfPeople.Recovered, NumOfPeople.deadPer],
                 backgroundColor: [
                     'rgba(99, 255, 132, 0.2)',
                     'rgba(255, 99, 132, 0.2)',
@@ -71,7 +71,7 @@ export function init(){
     }
     
     function updateChart(chart:Chart<"bar", number[], string>) {
-        chart.data.datasets[0].data = [NumOfPeople.wholePer, NumOfPeople.Infectious, NumOfPeople.Recovered];
+        chart.data.datasets[0].data = [NumOfPeople.wholePer, NumOfPeople.Infectious, NumOfPeople.Recovered, NumOfPeople.deadPer];
         chart.update();
     }
 }

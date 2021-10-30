@@ -1649,7 +1649,7 @@ declare namespace kakao.maps {
       /**
        * 사각형의 영역
        */
-      bounds: LatLngBounds;
+      bounds?: LatLngBounds;
   
       /**
        * #xxxxxx 형태의 채움 색 (기본값: ‘#F10000’)

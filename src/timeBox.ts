@@ -1,6 +1,5 @@
 import { variable, time_DHS } from './variable'
 import { timebox, Square, clock } from './constants'
-import { plusDeadRate } from './Death'
 
 let num = 0;
 export function init(){
@@ -18,7 +17,6 @@ function time(){
             time_DHS.min = 0;
             if(time_DHS.hour >= 24){
                 time_DHS.date++;
-                plusDeadRate()
                 num = timebox.offsetWidth;
                 time_DHS.hour = 0;
             }
