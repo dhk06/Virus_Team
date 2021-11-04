@@ -3,7 +3,7 @@ import { NumOfPeople } from './constants';
 import { areas, peoples } from './variable';
 import { Area } from './Area';
 
-const resultDiv = document.querySelector<HTMLDivElement>('#resultDiv');
+const resultDiv = document.querySelector<HTMLDivElement>('#ClickResultDiv');
 
 export let map:kakao.maps.Map = null;
 
@@ -23,8 +23,11 @@ export function init(){
     kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
         // 클릭한 위도, 경도 정보 가져오기
         let latlng = mouseEvent.latLng;
+        let lat = latlng.getLat();
+        let lng = latlng.getLng();
+
         
-        let message = '클릭한 위치의 좌표 (위도,경도) : ' + latlng.getLat() + ', ' + latlng.getLng();
+        let message = `Lat: ${lat.toFixed(7)} \u00a0\u00a0 Lng: ${lng.toFixed(7)}`;
 
         resultDiv.innerHTML = `${message}`;
     });

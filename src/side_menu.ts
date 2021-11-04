@@ -7,10 +7,10 @@ export function init(){
     
     mainMenu.addEventListener('click', function(){
         if(menuBtn_click.main == false){
-            mainMenu_contents.style.height = '220px';
+            mainMenu_contents.style.height = '280px';
             menuBtn_click.main = true;
         }else{
-            mainMenu_contents.style.height = '50px';
+            mainMenu_contents.style.height = '70px';
             menuBtn_click.main = false;
         }
         this.classList.toggle('active');

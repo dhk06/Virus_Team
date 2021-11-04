@@ -5,25 +5,35 @@ body{
     width: 100vw;
     height: calc(100vh - 90px);
 }
-#resultDiv{
+#boundary{
     position: absolute;
-    right: 5px;
     top: 0px;
 
-    background-color: rgb(0, 0, 0, 0.75);
+    /* background-color: rgb(0, 0, 0, 0.75); */
+    background: linear-gradient( to right, rgb(90, 90, 90) 10%, rgb(200, 200, 200) 50%, rgb(90, 90, 90));
+    width: 100vw;
+    height: 7px;
+    /* border-bottom: 5px solid; */
+    z-index: 101;
+}
+#ClickResultDiv{
+    top: 0px;
+
+    background-color: #1e201f;
     color: white;
-    width: calc(100vw - 10px);
+    border-radius: 5px;
+    width: 350px;
     height: 30px;
-    font-size: 15px;
-    text-align: right;
+    font-size: 17px;
+    text-align: center;
 
     box-sizing: border-box;
-    padding: 5px;
+    padding: 3px 5px;
     z-index: 101;
 }
 #underbar{
     width: 100vw;
-    height: 125px;
+    height: 110px;
     position: absolute;
     bottom: 0;
     z-index: 100;
@@ -31,18 +41,22 @@ body{
 #setUnderBar{
     display: flex;
     width: 100vw;
-    height: 90px;
+    height: 103px;
     background: linear-gradient( to right, #1e201f 10%, gray 50%, #1e201f);
+    /* border: 4px outset ; */
+    border-bottom: none;
     position: inherit;
 
     align-items: center;
     justify-content: center;
 
     z-index: 105;
+    box-sizing: border-box;
     bottom: 0;
 }
 #setUnderBar > div{
     display: flex;
+    flex-wrap: wrap;
 }
 #peo1{
     position: absolute;
@@ -95,8 +109,8 @@ body{
     position: absolute;
     top: 15px;
     left: 15px;
-    width: 50px; 
-    height: 50px;
+    width: 70px;
+    height: 70px;
     border: 2px solid rgba(0, 0, 0, 0.2);
     border-radius: 50%;
     background: #323235;
@@ -110,7 +124,7 @@ body{
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 30px;
+    width: 35px;
     height: 4px;
     border-radius: 2px;
     background: white;
@@ -144,11 +158,11 @@ body{
     position: absolute;
     top: 15px;
     left: 15px;
-    width: 50px; 
-    height: 50px;
-    border-radius: 25px;
+    width: 70px; 
+    height: 70px;
+    border-radius: 35px;
     background: #323235;
-    padding-top: 50px;
+    padding-top: 70px;
     align-items: center;
 
     box-sizing: border-box;
@@ -157,13 +171,14 @@ body{
 
     transition: all 0.2s;
 }
+
 #mainMenu_contents div{
     display: flex;
-    width: 45px;
-    height: 45px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     margin: 5px 0;
-    font-size: 20px;
+    font-size: 25px;
     justify-content: center;
     align-items: center;
     background-color: #424249;
@@ -177,23 +192,29 @@ body{
     background-color: #3f3f46;
     box-shadow: none;
 }
+#mainMenu_contents > div{
+    margin-top: 8px;
+}
 
 .Peopleshow{
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    width: 110px;
-    height: 22px;
+    width: 120px;
+    height: 30px;
 
     background-color: #323235;
     border-radius: 5px;
+    font-size: 17px;
 
     margin: 0 5px;
+    line-height: 30px;
+    box-sizing: border-box;
 }.Peopleshow div{
     width: calc(100% - 30px);
-    height: 20px;
+    /* height: 25px; */
+    /* padding: 4px; */
 
-    font-size: 15px;
     box-sizing: border-box;
 }
 #S_showbox{
@@ -210,16 +231,17 @@ body{
     display: flex;
     position: relative;
 
-    width: 240px;
-    height: 25px;
+    width: 250px;
+    height: 30px;
     background-color: #323235;
     color: white;
     border-radius: 5px;
     border: 1px solid #4b4b52;
 }
 #timeset{
-    width: 25px;
+    width: 30px;
     height: 100%;
+    font-size: 20px;
     background-color: #1e201f;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -228,16 +250,16 @@ body{
     z-index: 100;
 }
 #timeSpeed{
-    width: 25px;
+    width: 30px;
     height: 100%;
     background-color: #1e201f;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    font-size: 12px;
+    font-size: 13px;
     text-align: center;
 
     word-spacing: -10px;
-    line-height: 21px;
+    line-height: 25px;
 
     cursor: pointer;
     user-select: none;
@@ -245,17 +267,21 @@ body{
 
 #virus_infection{
     display: flex;
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+
+    background-color: #323235;
+    color: white;
+    border-radius: 5px;
+
     align-items: center;
     justify-content: space-evenly;
-    width: 25px;
-    height: 25px;
-
-    border-radius: 5px;
 
     cursor: pointer;
     user-select: none;
 }#virus_infection:active{
-    background-color: #323235;
+    background-color: #28282b;
 }
 
 #timebox{
@@ -264,6 +290,7 @@ body{
 
     width: 100%;
     height: 100%;
+    
     align-items: center;
 }
 #timeShadow{
@@ -279,11 +306,10 @@ body{
     position: relative;
 
     width: 240px;
-    height: 25px;
-    margin: 0 50px;
+    height: 30px;
     text-align: center;
-    padding: 2px 0;
-    font-size: 15px;
+    padding: 3px 0;
+    font-size: 16px;
     background-color: #1e201f;
     color: white;
     border-radius: 5px;
@@ -341,13 +367,13 @@ body{
 
     position: absolute;
     top: 50px;
-    left: 80px;
+    left: 100px;
     z-index: 150;
 }#lineDiv{
     display: none;
     position: absolute;
     top: 50px;
-    left: 80px;
+    left: 100px;
     z-index: 150;
 }
 
@@ -399,15 +425,15 @@ body{
     box-sizing: border-box;
 }
 #part1{
-    height: 60%;
+    height: 100%;
     justify-content: center;
 }
 #part2{
     position: inherit;
-    height: 40%;
+    height: 100%;
     padding: 0px 50px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 .policy{
     display: flex;
@@ -417,7 +443,7 @@ body{
     height: 35px;
     background-color: #1e201f;
 
-    margin: 0 10px;
+    margin-left: 10px;
     border-radius: 5px;
     font-size: 22px;
 

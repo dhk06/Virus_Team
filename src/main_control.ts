@@ -43,7 +43,7 @@ export function init(_map: kakao.maps.Map){
         people.findmove();
         if(setting.hospitalSystem){
             people.checkedInfection();
-            console.log('병원 활성화')
+            // console.log('병원 활성화')
         }
     }
 
@@ -57,7 +57,7 @@ export function init(_map: kakao.maps.Map){
     
     window.onkeyup = (e: { keyCode: number; }) =>{
         if(e.keyCode == 32){
-            console.log('spacebar')
+            // console.log('spacebar')
             if(timeset.innerHTML == 'II'){
                 timeset.innerHTML = '▶';
                 timeset.style.lineHeight = 'normal';
@@ -74,8 +74,9 @@ export function init(_map: kakao.maps.Map){
 
     virus_infection.addEventListener('click', function(){
         if(currentPeople != null && currentPeople.color == 'green'){
-            console.log('change!')
+            // console.log('change!')
             currentPeople.changeColor();
+            console.log(currentPeople.hvToGoHospital)
             NumOfPeople.Infectious++;
             NumOfPeople.wholePer--;
         }else if(currentPeople == null){
@@ -89,14 +90,6 @@ export function init(_map: kakao.maps.Map){
             people.WearAMast_toggle();
         }
     })
-
-    // pol_Isolation.addEventListener('click', function(){
-    //     for(let i = 0; i < peoples.length; i++){
-    //         const people = peoples[i];
-    //         people.hospital_toggle();
-    //     }
-    //     console.log('hospital');
-    // })
 }
 
 export function move2ClickedPlace_before(arrName: number, arriveLocation: kakao.maps.LatLng){

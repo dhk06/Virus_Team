@@ -28,16 +28,16 @@ export function init(){
             }, {
                 label: 'R',
                 data: [],
-                backgroundColor: 'rgba(100, 100, 100, 0.2)',
-                borderColor: 'rgba(100, 100, 100, 1)',
+                backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                borderColor: 'rgba(255, 206, 86, 1)',
                 type: 'line',
                 order: 3,
                 tension: 0.4
             }, {
                 label: 'D',
                 data: [],
-                backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                borderColor: 'rgba(255, 206, 86, 1)',
+                backgroundColor: 'rgba(100, 100, 100, 0.2)',
+                borderColor: 'rgba(100, 100, 100, 1)',
                 type: 'line',
                 order: 4,
                 tension: 0.4

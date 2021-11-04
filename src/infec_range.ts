@@ -19,7 +19,7 @@ function fun(){
     
                     let result = Math.sqrt(Math.pow(p1x - p2x, 2) + Math.pow(p1y - p2y, 2));
                     if(result < 0.001){
-                        // per(peoples[j].infectionRate, peoples[j])
+                        per(peoples[j].infectionRate, peoples[j])
                     }
                 }
             }

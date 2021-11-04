@@ -18,12 +18,8 @@
     <div id="P_inf">0</div>
 
     <div id="underbar">
-        
-        <div id="resultDiv">클릭한 위치의 좌표 (위도,경도) : </div>
+        <div id="boundary"></div>
         <div id="setUnderBar">
-            <div style="z-index: 2000;">
-                <!-- <a style="color: white;" href="./index.html">move</a> -->
-            </div>
             <div class="part" id="part2">
                 <div id="timeshow">
                     <div id="timeset">II</div>
@@ -63,6 +59,7 @@
                         <input class="pol_input" id="pol_mask" type="checkbox"><label for="pol_mask">😷</label>
                     </div>
                 </div>
+                <div id="ClickResultDiv">클릭 좌표(Lat,Lng)</div>
             </div>
         </div>
     </div>
@@ -77,10 +74,10 @@
             <div id="save_btn">💾</div>
         </div>
         <div id="barDiv" class="graphDiv">
-            <canvas class="graph" id="barGraph" width="400" height="400"></canvas>
+            <canvas class="graph" id="barGraph" width="550" height="400"></canvas>
         </div>
         <div id="lineDiv" class="graphDiv">
-            <canvas class="graph" id="lineGraph" width="400" height="400"></canvas>
+            <canvas class="graph" id="lineGraph" width="550" height="400"></canvas>
         </div>
     </div>
 </body>

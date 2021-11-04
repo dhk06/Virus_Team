@@ -89,6 +89,7 @@ export class Person implements People {
     goToHospital_: People['goToHospital_'];
     hvToGoHospital: People['hvToGoHospital'];
     nearestHospital: People['nearestHospital'];
+    RecoveredCheck;
 
     constructor(map: kakao.maps.Map) {
         let loc: number = null;
@@ -160,7 +161,7 @@ export class Person implements People {
         this.color = 'green';
         this.infection = false;
         this.infectionRate = 10;
-        this.deathRate = 5;
+        this.deathRate = 1;
         this.die = false;
         this.locNum = loc;
         this.per_click = false;
@@ -171,6 +172,7 @@ export class Person implements People {
         this.goToHospital_ = false;
         this.hvToGoHospital = false;
         this.nearestHospital = [];
+        this.RecoveredCheck = false;
     }
     disappearance() {
         this.circle.setOptions({ fillOpacity: 0, strokeWeight: 0 })
@@ -183,7 +185,7 @@ export class Person implements People {
     discrimination() {
         if (this.infection) {
             const checkCirposition = this.circle.getPosition();
-            const checkCirposition_x = checkCirposition.getLng();
+            const checkCirposition_x = checkCirposition.getLng(); // 사람좌표
             const checkCirposition_y = checkCirposition.getLat();
             const checkbounds = new kakao.maps.LatLngBounds(areaData[0].path[0], areaData[areaData.length - 1].path[1]);
             const checkresult: boolean = checkbounds.contain(checkCirposition)
@@ -204,14 +206,22 @@ export class Person implements People {
 
     changeColor() {
         if (this.color == 'green') {
+            // if((this.circle as any).Eb.fillColor == 'rgb(0, 190, 0)'){
+            //     // console.log('a')
+            //     // this.findmove();
+            //     // debugger;
+            // }
             this.circle.setOptions({ fillColor: 'red' });
             this.color = 'red';
             if (setting.hospitalSystem) {
                 this.hvToGoHospital = true;
+                if(this.RecoveredCheck){
+                    this.checkedInfection();
+                    this.RecoveredCheck = false;
+                }
             }
             this.infection = true;
             this.deathAlgorithm();
-            console.log('d?')
         } else {
             this.infection = false;
             this.color = 'green';
@@ -225,11 +235,7 @@ export class Person implements People {
     WearAMast_toggle() {
         if (pol_mask.checked) {
             this.circle.setOptions({ strokeOpacity: 100 });
-            if (this.infectionRate != 1) {
-                this.infectionRate = 3;
-            } else {
-                this.infectionRate == 1;
-            }
+            this.infectionRate == 1;
             this.mask = true;
         } else {
             this.circle.setOptions({ strokeOpacity: 0 });
@@ -311,6 +317,7 @@ export class Person implements People {
         const minTime = 10;
         let quarantineTime = Math.floor(Math.random() * (maxTime - minTime + 1)) + minTime;
         // console.log(`회복시간: ${quarantineTime}`)
+        quarantineTime = 3;
         let a = setInterval(() => {
             quarantineTime--;
             // console.log(quarantineTime)
@@ -321,8 +328,9 @@ export class Person implements People {
                 hospital_data[this.nearestHospital[0].hospitalNumber].enteredPeople--;
                 NumOfPeople.Recovered++;
                 NumOfPeople.Infectious--;
-                this.findmove();
                 clearInterval(a);
+                this.RecoveredCheck = true;
+                this.findmove();
             }
         }, 1000)
     }
@@ -330,10 +338,15 @@ export class Person implements People {
     deathAlgorithm() {
         if (this.infection) {
             let count = 0;
-            console.log('d')
+            // console.log('d')
             const a = setInterval(() => {
-                count++;
+                if(variable.movingStart){
+                    count++;
+                }
                 // console.log(count)
+                if(!this.infection){
+                    clearInterval(a);
+                }
                 if (count >= 20) {
                     this.Fper(this.deathRate, a);
                 }
@@ -342,15 +355,17 @@ export class Person implements People {
     }
     Fper(per: number, a) {
         let rand = Math.random();
-        let num = per / 10;
+        let num = per / 100;
         if (rand <= num) {
             this.death();
             clearInterval(a)
             NumOfPeople.deadPer++;
         } else{
-            if(this.deathRate != 100){
+            if(this.deathRate < 100){
                 this.deathRate++;
             }
+            clearInterval(a)
+            this.deathAlgorithm();
         }
     }
     death() {
@@ -409,6 +424,9 @@ export class Person implements People {
                             if (this.per_click) {
                                 _per_arrive = true;
                             } else {
+                                // if(this.infection){
+                                //     console.log('findmove?')
+                                // }
                                 if (!this.hvToGoHospital) {
                                     this.findmove();
                                 }
@@ -535,7 +553,7 @@ export class Person implements People {
                                         this.per_arrive = true;
                                         _per_arrive = true;
                                         if (this.hvToGoHospital && !_per_click) {
-                                            console.log(this.per_arrive, _per_arrive)
+                                            // console.log(this.per_arrive, _per_arrive)
                                             this.quarantineInHospital()
                                         }
                                         this.locNum = arrivePoint;
