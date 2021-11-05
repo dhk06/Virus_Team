@@ -126,7 +126,7 @@ function displayPoint(arr:typeof pointData[0]){
     kakao.maps.event.addListener(circle, 'mouseover', function(mouseEvent) {
         customOverlay.setContent(`<div class='area'>${arr.name}</div>`);
         customOverlay.setPosition(mouseEvent.latLng);
-        customOverlay.setMap(map);
+        // customOverlay.setMap(map);
     });
     kakao.maps.event.addListener(circle, 'mouseout', function() {
         customOverlay.setMap(null);

@@ -304,7 +304,7 @@ export class Person implements People {
                         this.findmove();
                     }
                 }
-                per(50);
+                per(30);
             }
         }, 60)
     }
@@ -313,8 +313,8 @@ export class Person implements People {
         this.circle.setOptions({ fillOpacity: 0 });
         // console.log(this.nearestHospital)
         hospital_data[this.nearestHospital[0].hospitalNumber].enteredPeople++;
-        const maxTime = 15;
-        const minTime = 10;
+        const maxTime = 20;
+        const minTime = 15;
         let quarantineTime = Math.floor(Math.random() * (maxTime - minTime + 1)) + minTime;
         // console.log(`회복시간: ${quarantineTime}`)
         quarantineTime = 3;
