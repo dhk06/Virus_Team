@@ -50,7 +50,7 @@ export function init(){
                 y: {
                     beginAtZero: true,
                     min: 0,
-                    max: NumOfPeople.wholePer
+                    max: NumOfPeople.wholePer + NumOfPeople.Infectious
                 }
             },
             elements: {

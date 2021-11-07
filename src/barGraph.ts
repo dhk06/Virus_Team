@@ -35,7 +35,7 @@ export function init(){
             scales: {
                 x: {
                     min: 0,
-                    max: NumOfPeople.wholePer
+                    max: NumOfPeople.wholePer + NumOfPeople.Infectious
                 }
             }
         }

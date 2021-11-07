@@ -78,7 +78,19 @@ export function init(_map: kakao.maps.Map){
             currentPeople.changeColor();
             console.log(currentPeople.hvToGoHospital)
             NumOfPeople.Infectious++;
-            NumOfPeople.wholePer--;
+            if(currentPeople.RecoveredCheck){
+                if(NumOfPeople.Recovered > 0){
+                    NumOfPeople.Recovered--;
+                }else{
+                    NumOfPeople.Recovered = 0;
+                }
+            }else{
+                if(NumOfPeople.wholePer > 0){
+                    NumOfPeople.wholePer--;
+                }else{
+                    NumOfPeople.wholePer = 0;
+                }
+            }
         }else if(currentPeople == null){
             console.log('currentPeople is null')
         }
@@ -101,21 +113,3 @@ export function move2ClickedPlace_before(arrName: number, arriveLocation: kakao.
         }
     }
 }
-
-// function step(){
-//     // 플레이 w,a,s,d
-//     // const p = MOVE_PARAMS[moveOpts.key];
-//     // if(p != null && currentPeople != null){
-//     //     if(+moveOpts.d + 500 < +new Date()){
-//     //         currentPeople.position.x += p.vy;
-//     //         currentPeople.position.y += p.vx;
-
-//     //         const currentPosition = new kakao.maps.LatLng(currentPeople.position.y, currentPeople.position.x)
-//     //         currentPeople.circle.setPosition(currentPosition);
-//     //         map.setCenter(currentPosition);
-//     //     }
-//     // }
-    
-    
-//     requestAnimationFrame(step)
-// }

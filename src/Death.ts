@@ -2,15 +2,15 @@ import { Person } from './person'
 import { NumOfPeople } from './constants'
 import { peoples } from './variable'
 
-function plusDeadRate() {
-    for (let i = 0; i < peoples.length; i++) {
-        const p = peoples[i];
-        if (p.color == 'red') {
-            p.deathRate++;
-            Fper(p, p.deathRate);
-        }
-    }
-}
+// function plusDeadRate() {
+//     for (let i = 0; i < peoples.length; i++) {
+//         const p = peoples[i];
+//         if (p.color == 'red') {
+//             p.deathRate++;
+//             Fper(p, p.deathRate);
+//         }
+//     }
+// }
 
 function Fper(p: Person, per: number) {
     let rand = Math.random();
@@ -18,7 +18,8 @@ function Fper(p: Person, per: number) {
     if (rand <= num) {
         p.death();
         NumOfPeople.deadPer++;
+        NumOfPeople.Infectious--;
     }
 }
 
-export { plusDeadRate, Fper }
+export { Fper }

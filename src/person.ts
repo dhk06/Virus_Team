@@ -302,11 +302,25 @@ export class Person implements People {
                     } else {
                         // console.log('nope');
                         this.findmove();
+                        this.hvToGoHospital = false;
+                        this.NP_Hospital_count();
                     }
                 }
                 per(30);
             }
         }, 60)
+    }
+
+    NP_Hospital_count(){
+        let count = 0;
+        const a = setInterval(()=>{
+            if(count >= 5){
+                this.hvToGoHospital = true;
+                clearInterval(a)
+            }
+            // console.log(count)
+            count++;
+        }, 1000)
     }
 
     quarantineInHospital() {
@@ -319,7 +333,9 @@ export class Person implements People {
         // console.log(`회복시간: ${quarantineTime}`)
         quarantineTime = 3;
         let a = setInterval(() => {
-            quarantineTime--;
+            if(variable.movingStart){
+                quarantineTime--;
+            }
             // console.log(quarantineTime)
             if (quarantineTime <= 0) {
                 this.circle.setOptions({ fillOpacity: 100 });
